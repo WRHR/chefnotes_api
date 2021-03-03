@@ -10,6 +10,8 @@ import connectRedis from "connect-redis";
 import cors from "cors";
 import { COOKIE_NAME, __prod__ } from "./constants";
 import { MyContext } from "./types";
+import { User } from "./entities/User";
+import { UserResolver } from "./resolvers/user";
 
 const main = async () => {
   dotenv.config();
@@ -19,7 +21,7 @@ const main = async () => {
     database: process.env.DB,
     logging: true,
     synchronize: true,
-    entities: [],
+    entities: [User],
   });
 
   const app = express();
@@ -55,7 +57,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers:[],
+      resolvers:[UserResolver],
       validate:false
     }),
     context: ({req, res}): MyContext => ({req, res, redis})
