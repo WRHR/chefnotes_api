@@ -1,5 +1,6 @@
 import { Field, ObjectType } from 'type-graphql'
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Recipe } from './Recipe'
 
 @ObjectType()
 @Entity()
@@ -15,4 +16,7 @@ export class Instruction extends BaseEntity{
   @Field()
   @Column()
   position:number
+
+  @ManyToOne(()=>Recipe, (recipe)=> recipe.instructions)
+  recipe:Recipe
 }

@@ -1,18 +1,31 @@
-import { Field, ObjectType } from 'type-graphql'
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Field, ObjectType } from "type-graphql";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Recipe } from "./Recipe";
 
 @ObjectType()
 @Entity()
-export class Ingredient extends BaseEntity{
+export class Ingredient extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
-  id!:number
+  id!: number;
 
   @Field()
   @Column()
-  name!:string
+  name!: string;
 
   @Field()
   @Column()
-  quantity!:string
+  quantity!: string;
+
+  @ManyToOne(() => Recipe, (recipe) => recipe.ingredients, {
+    onDelete: "CASCADE",
+  })
+  recipe: Recipe;
 }
