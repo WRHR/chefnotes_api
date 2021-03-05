@@ -64,7 +64,6 @@ export class UserResolver {
         .values({
           username: options.username,
           password: hashedPassword,
-          email: options.email,
         })
         .returning("*")
         .execute();
