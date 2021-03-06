@@ -1,7 +1,7 @@
-import { User } from "src/entities/User";
 import { MyContext } from "src/types";
 import {
   Arg,
+  Ctx,
   Field,
   FieldResolver,
   InputType,
@@ -13,6 +13,7 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Recipe } from "../entities/Recipe";
+import { User } from "src/entities/User";
 
 @InputType()
 class RecipeInput {
@@ -34,6 +35,11 @@ class PaginatedRecipes {
 
 @Resolver(Recipe)
 export class RecipeResolver {
+  @Query(()=>[Recipe])
+  async recipesAll():Promise<Recipe[]>{
+    return Recipe.find()
+  }
+
   @Query(() => PaginatedRecipes)
   async recipes(
     @Arg("limit", () => Int) limit: number,
@@ -70,7 +76,7 @@ export class RecipeResolver {
   ): Promise<Recipe> {
     return Recipe.create({
       ...input,
-      creatorId: req.session.userId
-    }).save()
+      creatorId: req.session.userId,
+    }).save();
   }
 }
