@@ -35,9 +35,9 @@ class PaginatedRecipes {
 
 @Resolver(Recipe)
 export class RecipeResolver {
-  @Query(()=>[Recipe])
-  async recipesAll():Promise<Recipe[]>{
-    return Recipe.find()
+  @Query(() => [Recipe])
+  async recipesAll(): Promise<Recipe[]> {
+    return Recipe.find();
   }
 
   @Query(() => PaginatedRecipes)
@@ -76,7 +76,27 @@ export class RecipeResolver {
   ): Promise<Recipe> {
     return Recipe.create({
       ...input,
-      creatorId:req.session.userId
-    }).save()
+      creatorId: req.session.userId,
+    }).save();
+  }
+
+  @Mutation(() => Recipe)
+  async updateRecipe(
+    @Arg("id", () => Int) id: number,
+    @Arg("name") name: string,
+    @Arg("description") description: string,
+    @Ctx() { req }: MyContext
+  ): Promise<Recipe | null> {
+    const result = await getConnection()
+      .createQueryBuilder()
+      .update(Recipe)
+      .set({ name, description })
+      .where('id = :id and "creatorId" = :creatorId', {
+        id,
+        creatorId: req.session.userId,
+      })
+      .returning("*")
+      .execute();
+    return result.raw[0];
   }
 }
