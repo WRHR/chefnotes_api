@@ -6,6 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Recipe } from "./Recipe";
 
 @ObjectType()
 @Entity()
@@ -21,5 +22,6 @@ export class User extends BaseEntity {
   @Column()
   password!: string;
 
-
+  @OneToMany(() => Recipe, (recipe) => recipe.creator)
+  recipes: Recipe[];
 }

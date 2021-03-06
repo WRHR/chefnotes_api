@@ -1,10 +1,12 @@
 import { User } from "src/entities/User";
+import { MyContext } from "src/types";
 import {
   Arg,
   Field,
   FieldResolver,
   InputType,
   Int,
+  Mutation,
   ObjectType,
   Query,
   Resolver,
@@ -59,5 +61,16 @@ export class RecipeResolver {
   @Query(() => Recipe, { nullable: true })
   recipe(@Arg("id", () => Int) id: number): Promise<Recipe | undefined> {
     return Recipe.findOne(id);
+  }
+
+  @Mutation(() => Recipe)
+  async createRecipe(
+    @Arg("input") input: RecipeInput,
+    @Ctx() { req }: MyContext
+  ): Promise<Recipe> {
+    return Recipe.create({
+      ...input,
+      creatorId: req.session.userId
+    }).save()
   }
 }
