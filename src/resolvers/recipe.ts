@@ -99,4 +99,13 @@ export class RecipeResolver {
       .execute();
     return result.raw[0];
   }
+
+  @Mutation(() => Boolean)
+  async deleteRecipe(
+    @Arg("id", () => Int) id: number,
+    @Ctx() { req }: MyContext
+  ): Promise<Boolean> {
+    await Recipe.delete({ id, creatorId: req.session.userId });
+    return true;
+  }
 }
