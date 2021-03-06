@@ -49,6 +49,10 @@ export class RecipeResolver {
       `
       select 
       `
-      )
+    );
+    return {
+      recipes: recipes.slice(0, realLimit),
+      hasMore: postMessage.length === realLimitPlusOne,
+    };
   }
 }
