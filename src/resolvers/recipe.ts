@@ -55,4 +55,9 @@ export class RecipeResolver {
       hasMore: postMessage.length === realLimitPlusOne,
     };
   }
+
+  @Query(() => Recipe, { nullable: true })
+  recipe(@Arg("id", () => Int) id: number): Promise<Recipe | undefined> {
+    return Recipe.findOne(id);
+  }
 }
