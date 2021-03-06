@@ -13,6 +13,10 @@ export class Recipe extends BaseEntity{
   @Field()
   @Column()
   name!:string
+  
+  @Field()
+  @Column()
+  description!:string
 
   @OneToMany(()=>Ingredient,(ingredient)=>ingredient.recipe)
   ingredients:Ingredient[]
