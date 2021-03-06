@@ -18,10 +18,10 @@ import { User } from "src/entities/User";
 @InputType()
 class RecipeInput {
   @Field()
-  name: String;
+  name!: string;
 
   @Field()
-  description: string;
+  description!: string;
 }
 
 @ObjectType()
@@ -76,7 +76,7 @@ export class RecipeResolver {
   ): Promise<Recipe> {
     return Recipe.create({
       ...input,
-      creatorId: req.session.userId,
-    }).save();
+      creatorId:req.session.userId
+    }).save()
   }
 }
