@@ -12,6 +12,10 @@ import { COOKIE_NAME, __prod__ } from "./constants";
 import { MyContext } from "./types";
 import { User } from "./entities/User";
 import { UserResolver } from "./resolvers/user";
+import { BaseRecipe } from "./entities/BaseRecipe";
+import { ModifiedRecipe } from "./entities/ModifiedRecipe";
+import { Ingredient } from "./entities/Ingredient";
+import { Instruction } from "./entities/Instruction";
 
 const main = async () => {
   dotenv.config();
@@ -21,7 +25,7 @@ const main = async () => {
     database: process.env.DB,
     logging: true,
     synchronize: true,
-    entities: [User],
+    entities: [User, BaseRecipe, ModifiedRecipe, Ingredient, Instruction],
   });
 
   const app = express();
@@ -47,7 +51,7 @@ const main = async () => {
         maxAge: 1000 * 60 * 60 * 24 * 365,
         httpOnly: true,
         sameSite: "lax",
-        secure: __prod__, 
+        secure: __prod__,
       },
       saveUninitialized: false,
       secret: `supersecretsecret`,
@@ -57,16 +61,16 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers:[UserResolver],
-      validate:false
+      resolvers: [UserResolver],
+      validate: false,
     }),
-    context: ({req, res}): MyContext => ({req, res, redis})
-  })
+    context: ({ req, res }): MyContext => ({ req, res, redis }),
+  });
 
   apolloServer.applyMiddleware({
     app,
-    cors: false
-  })
+    cors: false,
+  });
 
   const PORT = process.env.PORT;
 
