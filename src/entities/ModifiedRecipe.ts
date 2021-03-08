@@ -39,6 +39,10 @@ export class ModifiedRecipe extends BaseEntity {
 
   @Field()
   @PrimaryColumn()
+  baseRecipeId:number
+
+  @Field()
+  @PrimaryColumn()
   creatorId: number;
 
   @ManyToOne(() => User, (user) => user.recipes)
