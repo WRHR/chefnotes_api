@@ -23,7 +23,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserResolver = void 0;
 const User_1 = require("../entities/User");
@@ -82,7 +81,6 @@ let UserResolver = class UserResolver {
                     .values({
                     username: options.username,
                     password: hashedPassword,
-                    email: options.email,
                 })
                     .returning("*")
                     .execute();
@@ -159,7 +157,7 @@ __decorate([
     __param(0, type_graphql_1.Arg("options")),
     __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof UsernamePasswordInput_1.UsernamePasswordInput !== "undefined" && UsernamePasswordInput_1.UsernamePasswordInput) === "function" ? _a : Object, Object]),
+    __metadata("design:paramtypes", [UsernamePasswordInput_1.UsernamePasswordInput, Object]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "register", null);
 __decorate([

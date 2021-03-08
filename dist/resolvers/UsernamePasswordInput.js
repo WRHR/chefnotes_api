@@ -9,33 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.UsernamePasswordInput = void 0;
 const type_graphql_1 = require("type-graphql");
-const typeorm_1 = require("typeorm");
-const Recipe_1 = require("./Recipe");
-let User = class User extends typeorm_1.BaseEntity {
+let UsernamePasswordInput = class UsernamePasswordInput {
 };
 __decorate([
     type_graphql_1.Field(),
-    typeorm_1.PrimaryGeneratedColumn(),
-    __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+    __metadata("design:type", String)
+], UsernamePasswordInput.prototype, "username", void 0);
 __decorate([
     type_graphql_1.Field(),
-    typeorm_1.Column({ unique: true }),
     __metadata("design:type", String)
-], User.prototype, "username", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    typeorm_1.OneToMany(() => Recipe_1.Recipe, (recipe) => recipe.creator),
-    __metadata("design:type", Array)
-], User.prototype, "recipes", void 0);
-User = __decorate([
-    type_graphql_1.ObjectType(),
-    typeorm_1.Entity()
-], User);
-exports.User = User;
-//# sourceMappingURL=User.js.map
+], UsernamePasswordInput.prototype, "password", void 0);
+UsernamePasswordInput = __decorate([
+    type_graphql_1.InputType()
+], UsernamePasswordInput);
+exports.UsernamePasswordInput = UsernamePasswordInput;
+//# sourceMappingURL=UsernamePasswordInput.js.map
