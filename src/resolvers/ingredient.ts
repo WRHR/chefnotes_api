@@ -21,4 +21,12 @@ export class IngredientResolver {
       recipeId
     }).save()
   }
+
+  @Mutation(()=>Ingredient, {nullable:true})
+  async updateIngredient(
+    @Arg('id',()=>Int) id:number,
+    @Arg('input')input:IngredientInput,
+  ):Promise<Ingredient|null>{
+    return (await Ingredient.update({id},{...input})).raw[0]
+  }
 }
