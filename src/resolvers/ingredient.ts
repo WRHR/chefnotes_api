@@ -29,4 +29,12 @@ export class IngredientResolver {
   ):Promise<Ingredient|null>{
     return (await Ingredient.update({id},{...input})).raw[0]
   }
+
+  @Mutation(()=>Boolean)
+  async deleteIngredient(
+    @Arg('id',()=>Int)id:number
+  ){
+    await Ingredient.delete({id})
+    return true
+  }
 }
