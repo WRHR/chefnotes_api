@@ -1,5 +1,5 @@
 import { Ingredient } from "../entities/Ingredient";
-import { Arg, Field, InputType, Int, Resolver } from "type-graphql";
+import { Arg, Field, InputType, Int, Mutation, Resolver } from "type-graphql";
 
 @InputType()
 class IngredientInput {
@@ -11,6 +11,7 @@ class IngredientInput {
 
 @Resolver(Ingredient)
 export class IngredientResolver {
+  @Mutation(()=>Ingredient)
   async createIngredient(
     @Arg("input") input: IngredientInput,
     @Arg("recipeId", () => Int) recipeId: number
