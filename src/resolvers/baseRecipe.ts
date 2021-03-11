@@ -3,7 +3,6 @@ import {
   Arg,
   Ctx,
   Field,
-  FieldResolver,
   InputType,
   Int,
   Mutation,
@@ -13,7 +12,6 @@ import {
 } from "type-graphql";
 import { getConnection } from "typeorm";
 import { BaseRecipe } from "../entities/BaseRecipe";
-import { User } from "src/entities/User";
 
 @InputType()
 class RecipeInput {

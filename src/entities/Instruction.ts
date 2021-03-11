@@ -1,5 +1,5 @@
 import { Field, ObjectType } from 'type-graphql'
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
 import { Recipe } from './Recipe'
 
 @ObjectType()
