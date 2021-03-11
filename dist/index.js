@@ -29,6 +29,9 @@ const BaseRecipe_1 = require("./entities/BaseRecipe");
 const ModifiedRecipe_1 = require("./entities/ModifiedRecipe");
 const Ingredient_1 = require("./entities/Ingredient");
 const Instruction_1 = require("./entities/Instruction");
+const baseRecipe_1 = require("./resolvers/baseRecipe");
+const ingredient_1 = require("./resolvers/ingredient");
+const instruction_1 = require("./resolvers/instruction");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     dotenv_1.default.config();
     yield typeorm_1.createConnection({
@@ -63,7 +66,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
-            resolvers: [user_1.UserResolver],
+            resolvers: [user_1.UserResolver, baseRecipe_1.BaseRecipeResolver, ingredient_1.IngredientResolver, instruction_1.InstructionResolver],
             validate: false,
         }),
         context: ({ req, res }) => ({ req, res, redis }),
