@@ -16,6 +16,9 @@ import { BaseRecipe } from "./entities/BaseRecipe";
 import { ModifiedRecipe } from "./entities/ModifiedRecipe";
 import { Ingredient } from "./entities/Ingredient";
 import { Instruction } from "./entities/Instruction";
+import { BaseRecipeResolver } from "./resolvers/baseRecipe";
+import { IngredientResolver } from "./resolvers/ingredient";
+import { InstructionResolver } from "./resolvers/instruction";
 
 const main = async () => {
   dotenv.config();
@@ -61,7 +64,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [UserResolver],
+      resolvers: [UserResolver, BaseRecipeResolver, IngredientResolver,InstructionResolver],
       validate: false,
     }),
     context: ({ req, res }): MyContext => ({ req, res, redis }),
