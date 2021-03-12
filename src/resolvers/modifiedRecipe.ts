@@ -37,12 +37,12 @@ class PaginatedRecipes {
 @Resolver(ModifiedRecipe)
 export class ModifiedRecipeResolver {
   @Query(() => [ModifiedRecipe])
-  async recipesAll(): Promise<ModifiedRecipe[]> {
+  async modifiedRecipesAll(): Promise<ModifiedRecipe[]> {
     return ModifiedRecipe.find();
   }
 
   @Query(() => PaginatedRecipes)
-  async recipes(
+  async modifiedRecipes(
     @Arg("limit", () => Int) limit: number,
     @Arg("cursor", () => String, { nullable: true }) cursor: string | null
   ): Promise<PaginatedRecipes> {
@@ -66,12 +66,12 @@ export class ModifiedRecipeResolver {
   }
 
   @Query(() => ModifiedRecipe, { nullable: true })
-  recipe(@Arg("id", () => Int) id: number): Promise<ModifiedRecipe | undefined> {
+  modifiedRecipe(@Arg("id", () => Int) id: number): Promise<ModifiedRecipe | undefined> {
     return ModifiedRecipe.findOne(id);
   }
 
   @Mutation(() => ModifiedRecipe)
-  async createRecipe(
+  async createModifiedRecipe(
     @Arg("input") input: RecipeInput,
     @Arg('baseRecipeId',()=>Int) baseRecipeId:number,
     @Ctx() { req }: MyContext
@@ -84,7 +84,7 @@ export class ModifiedRecipeResolver {
   }
 
   @Mutation(() => ModifiedRecipe)
-  async updateRecipe(
+  async updateModifiedRecipe(
     @Arg("id", () => Int) id: number,
     @Arg("name") name: string,
     @Arg("description") description: string,
@@ -104,7 +104,7 @@ export class ModifiedRecipeResolver {
   }
 
   @Mutation(() => Boolean)
-  async deleteRecipe(
+  async deleteModifiedRecipe(
     @Arg("id", () => Int) id: number,
     @Ctx() { req }: MyContext
   ): Promise<Boolean> {
