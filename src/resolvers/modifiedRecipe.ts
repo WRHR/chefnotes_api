@@ -73,7 +73,7 @@ export class ModifiedRecipeResolver {
   @Mutation(() => ModifiedRecipe)
   async createRecipe(
     @Arg("input") input: RecipeInput,
-    @Arg('baseRecipeId',()=>Int) baseRecipeId:number
+    @Arg('baseRecipeId',()=>Int) baseRecipeId:number,
     @Ctx() { req }: MyContext
   ): Promise<ModifiedRecipe> {
     return ModifiedRecipe.create({
