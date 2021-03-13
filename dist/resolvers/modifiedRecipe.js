@@ -21,10 +21,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseRecipeResolver = void 0;
+exports.ModifiedRecipeResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-const BaseRecipe_1 = require("../entities/BaseRecipe");
+const ModifiedRecipe_1 = require("../entities/ModifiedRecipe");
 let RecipeInput = class RecipeInput {
 };
 __decorate([
@@ -35,13 +35,17 @@ __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", String)
 ], RecipeInput.prototype, "description", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", Number)
+], RecipeInput.prototype, "baseRecipeId", void 0);
 RecipeInput = __decorate([
     type_graphql_1.InputType()
 ], RecipeInput);
 let PaginatedRecipes = class PaginatedRecipes {
 };
 __decorate([
-    type_graphql_1.Field(() => [BaseRecipe_1.BaseRecipe]),
+    type_graphql_1.Field(() => [ModifiedRecipe_1.ModifiedRecipe]),
     __metadata("design:type", Array)
 ], PaginatedRecipes.prototype, "recipes", void 0);
 __decorate([
@@ -51,13 +55,13 @@ __decorate([
 PaginatedRecipes = __decorate([
     type_graphql_1.ObjectType()
 ], PaginatedRecipes);
-let BaseRecipeResolver = class BaseRecipeResolver {
-    recipesAll() {
+let ModifiedRecipeResolver = class ModifiedRecipeResolver {
+    modifiedRecipesAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            return BaseRecipe_1.BaseRecipe.find();
+            return ModifiedRecipe_1.ModifiedRecipe.find();
         });
     }
-    recipes(limit, cursor) {
+    modifiedRecipes(limit, cursor) {
         return __awaiter(this, void 0, void 0, function* () {
             const realLimit = Math.min(50, limit);
             const realLimitPlusOne = realLimit + 1;
@@ -74,24 +78,19 @@ let BaseRecipeResolver = class BaseRecipeResolver {
             };
         });
     }
-    userRecipes({ req }) {
+    modifiedRecipe(id) {
+        return ModifiedRecipe_1.ModifiedRecipe.findOne(id);
+    }
+    createModifiedRecipe(input, baseRecipeId, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
-            return BaseRecipe_1.BaseRecipe.find({ creatorId: req.session.userId });
+            return ModifiedRecipe_1.ModifiedRecipe.create(Object.assign(Object.assign({}, input), { baseRecipeId, creatorId: req.session.userId })).save();
         });
     }
-    recipe(id) {
-        return BaseRecipe_1.BaseRecipe.findOne(id);
-    }
-    createRecipe(input, { req }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return BaseRecipe_1.BaseRecipe.create(Object.assign(Object.assign({}, input), { creatorId: req.session.userId })).save();
-        });
-    }
-    updateRecipe(id, name, description, { req }) {
+    updateModifiedRecipe(id, name, description, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield typeorm_1.getConnection()
                 .createQueryBuilder()
-                .update(BaseRecipe_1.BaseRecipe)
+                .update(ModifiedRecipe_1.ModifiedRecipe)
                 .set({ name, description })
                 .where('id = :id and "creatorId" = :creatorId', {
                 id,
@@ -102,19 +101,19 @@ let BaseRecipeResolver = class BaseRecipeResolver {
             return result.raw[0];
         });
     }
-    deleteRecipe(id, { req }) {
+    deleteModifiedRecipe(id, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield BaseRecipe_1.BaseRecipe.delete({ id, creatorId: req.session.userId });
+            yield ModifiedRecipe_1.ModifiedRecipe.delete({ id, creatorId: req.session.userId });
             return true;
         });
     }
 };
 __decorate([
-    type_graphql_1.Query(() => [BaseRecipe_1.BaseRecipe]),
+    type_graphql_1.Query(() => [ModifiedRecipe_1.ModifiedRecipe]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "recipesAll", null);
+], ModifiedRecipeResolver.prototype, "modifiedRecipesAll", null);
 __decorate([
     type_graphql_1.Query(() => PaginatedRecipes),
     __param(0, type_graphql_1.Arg("limit", () => type_graphql_1.Int)),
@@ -122,31 +121,25 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "recipes", null);
+], ModifiedRecipeResolver.prototype, "modifiedRecipes", null);
 __decorate([
-    type_graphql_1.Query(() => [BaseRecipe_1.BaseRecipe]),
-    __param(0, type_graphql_1.Ctx()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "userRecipes", null);
-__decorate([
-    type_graphql_1.Query(() => BaseRecipe_1.BaseRecipe, { nullable: true }),
+    type_graphql_1.Query(() => ModifiedRecipe_1.ModifiedRecipe, { nullable: true }),
     __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "recipe", null);
+], ModifiedRecipeResolver.prototype, "modifiedRecipe", null);
 __decorate([
-    type_graphql_1.Mutation(() => BaseRecipe_1.BaseRecipe),
+    type_graphql_1.Mutation(() => ModifiedRecipe_1.ModifiedRecipe),
     __param(0, type_graphql_1.Arg("input")),
-    __param(1, type_graphql_1.Ctx()),
+    __param(1, type_graphql_1.Arg('baseRecipeId', () => type_graphql_1.Int)),
+    __param(2, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [RecipeInput, Object]),
+    __metadata("design:paramtypes", [RecipeInput, Number, Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "createRecipe", null);
+], ModifiedRecipeResolver.prototype, "createModifiedRecipe", null);
 __decorate([
-    type_graphql_1.Mutation(() => BaseRecipe_1.BaseRecipe),
+    type_graphql_1.Mutation(() => ModifiedRecipe_1.ModifiedRecipe),
     __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
     __param(1, type_graphql_1.Arg("name")),
     __param(2, type_graphql_1.Arg("description")),
@@ -154,7 +147,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String, String, Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "updateRecipe", null);
+], ModifiedRecipeResolver.prototype, "updateModifiedRecipe", null);
 __decorate([
     type_graphql_1.Mutation(() => Boolean),
     __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
@@ -162,9 +155,9 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "deleteRecipe", null);
-BaseRecipeResolver = __decorate([
-    type_graphql_1.Resolver(BaseRecipe_1.BaseRecipe)
-], BaseRecipeResolver);
-exports.BaseRecipeResolver = BaseRecipeResolver;
-//# sourceMappingURL=baseRecipe.js.map
+], ModifiedRecipeResolver.prototype, "deleteModifiedRecipe", null);
+ModifiedRecipeResolver = __decorate([
+    type_graphql_1.Resolver(ModifiedRecipe_1.ModifiedRecipe)
+], ModifiedRecipeResolver);
+exports.ModifiedRecipeResolver = ModifiedRecipeResolver;
+//# sourceMappingURL=modifiedRecipe.js.map
