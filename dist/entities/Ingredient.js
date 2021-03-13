@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ingredient = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-const Recipe_1 = require("./Recipe");
+const BaseRecipe_1 = require("./BaseRecipe");
 let Ingredient = class Ingredient extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -35,10 +35,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Ingredient.prototype, "recipeId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(() => Recipe_1.Recipe, (recipe) => recipe.ingredients, {
+    typeorm_1.ManyToOne(() => BaseRecipe_1.BaseRecipe, (recipe) => recipe.ingredients, {
         onDelete: "CASCADE",
     }),
-    __metadata("design:type", Recipe_1.Recipe)
+    __metadata("design:type", BaseRecipe_1.BaseRecipe)
 ], Ingredient.prototype, "recipe", void 0);
 Ingredient = __decorate([
     type_graphql_1.ObjectType(),

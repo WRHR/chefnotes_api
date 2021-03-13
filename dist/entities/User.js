@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
-const Recipe_1 = require("./Recipe");
+const BaseRecipe_1 = require("./BaseRecipe");
 let User = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    typeorm_1.OneToMany(() => Recipe_1.Recipe, (recipe) => recipe.creator),
+    typeorm_1.OneToMany(() => BaseRecipe_1.BaseRecipe, (recipe) => recipe.creator),
     __metadata("design:type", Array)
 ], User.prototype, "recipes", void 0);
 User = __decorate([

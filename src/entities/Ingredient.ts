@@ -7,7 +7,7 @@ import {
   PrimaryColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Recipe } from "./Recipe";
+import { BaseRecipe } from "./BaseRecipe";
 
 @ObjectType()
 @Entity()
@@ -27,8 +27,8 @@ export class Ingredient extends BaseEntity {
   @PrimaryColumn()
   recipeId: number;
 
-  @ManyToOne(() => Recipe, (recipe) => recipe.ingredients, {
+  @ManyToOne(() => BaseRecipe, (recipe) => recipe.ingredients, {
     onDelete: "CASCADE",
   })
-  recipe: Recipe;
+  recipe: BaseRecipe;
 }
