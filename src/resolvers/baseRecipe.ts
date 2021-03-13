@@ -62,6 +62,11 @@ export class BaseRecipeResolver {
     };
   }
 
+  @Query(() => [BaseRecipe])
+  async userRecipes(@Ctx() { req }: MyContext) {
+    return BaseRecipe.find({ creatorId: req.session.userId });
+  }
+
   @Query(() => BaseRecipe, { nullable: true })
   recipe(@Arg("id", () => Int) id: number): Promise<BaseRecipe | undefined> {
     return BaseRecipe.findOne(id);
