@@ -11,30 +11,30 @@ class IngredientInput {
 
 @Resolver(Ingredient)
 export class IngredientResolver {
-  @Mutation(()=>Ingredient)
+  @Mutation(() => Ingredient)
   async createIngredient(
     @Arg("input") input: IngredientInput,
+    @Arg("base") base: boolean,
     @Arg("recipeId", () => Int) recipeId: number
   ): Promise<Ingredient> {
     return Ingredient.create({
       ...input,
-      recipeId
-    }).save()
+      base,
+      recipeId,
+    }).save();
   }
 
-  @Mutation(()=>Ingredient, {nullable:true})
+  @Mutation(() => Ingredient, { nullable: true })
   async updateIngredient(
-    @Arg('id',()=>Int) id:number,
-    @Arg('input')input:IngredientInput,
-  ):Promise<Ingredient|null>{
-    return (await Ingredient.update({id},{...input})).raw[0]
+    @Arg("id", () => Int) id: number,
+    @Arg("input") input: IngredientInput
+  ): Promise<Ingredient | null> {
+    return (await Ingredient.update({ id }, { ...input })).raw[0];
   }
 
-  @Mutation(()=>Boolean)
-  async deleteIngredient(
-    @Arg('id',()=>Int)id:number
-  ){
-    await Ingredient.delete({id})
-    return true
+  @Mutation(() => Boolean)
+  async deleteIngredient(@Arg("id", () => Int) id: number) {
+    await Ingredient.delete({ id });
+    return true;
   }
 }
