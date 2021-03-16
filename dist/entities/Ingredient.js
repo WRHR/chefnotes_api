@@ -31,6 +31,10 @@ __decorate([
     __metadata("design:type", String)
 ], Ingredient.prototype, "quantity", void 0);
 __decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Boolean)
+], Ingredient.prototype, "base", void 0);
+__decorate([
     typeorm_1.PrimaryColumn(),
     __metadata("design:type", Number)
 ], Ingredient.prototype, "recipeId", void 0);
