@@ -38,9 +38,10 @@ IngredientInput = __decorate([
     type_graphql_1.InputType()
 ], IngredientInput);
 let IngredientResolver = class IngredientResolver {
-    createIngredient(input, recipeId) {
+    createIngredient(input, base, recipeId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return Ingredient_1.Ingredient.create(Object.assign(Object.assign({}, input), { recipeId })).save();
+            return Ingredient_1.Ingredient.create(Object.assign(Object.assign({}, input), { base,
+                recipeId })).save();
         });
     }
     updateIngredient(id, input) {
@@ -58,22 +59,23 @@ let IngredientResolver = class IngredientResolver {
 __decorate([
     type_graphql_1.Mutation(() => Ingredient_1.Ingredient),
     __param(0, type_graphql_1.Arg("input")),
-    __param(1, type_graphql_1.Arg("recipeId", () => type_graphql_1.Int)),
+    __param(1, type_graphql_1.Arg("base")),
+    __param(2, type_graphql_1.Arg("recipeId", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [IngredientInput, Number]),
+    __metadata("design:paramtypes", [IngredientInput, Boolean, Number]),
     __metadata("design:returntype", Promise)
 ], IngredientResolver.prototype, "createIngredient", null);
 __decorate([
     type_graphql_1.Mutation(() => Ingredient_1.Ingredient, { nullable: true }),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
-    __param(1, type_graphql_1.Arg('input')),
+    __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
+    __param(1, type_graphql_1.Arg("input")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, IngredientInput]),
     __metadata("design:returntype", Promise)
 ], IngredientResolver.prototype, "updateIngredient", null);
 __decorate([
     type_graphql_1.Mutation(() => Boolean),
-    __param(0, type_graphql_1.Arg('id', () => type_graphql_1.Int)),
+    __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
