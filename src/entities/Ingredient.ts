@@ -24,6 +24,9 @@ export class Ingredient extends BaseEntity {
   @Column()
   quantity!: string;
 
+  @Column()
+  base!:boolean
+
   @PrimaryColumn()
   recipeId: number;
 

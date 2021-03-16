@@ -17,6 +17,9 @@ export class Instruction extends BaseEntity{
   @Column()
   position:number
 
+  @Column()
+  base!:boolean
+
   @PrimaryColumn()
   recipeId:number
 
