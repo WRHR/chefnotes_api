@@ -39,7 +39,7 @@ export class BaseRecipeResolver {
   }
 
   @Query(() => PaginatedRecipes)
-  async recipes(
+  async baseRecipes(
     @Arg("limit", () => Int) limit: number,
     @Arg("cursor", () => String, { nullable: true }) cursor: string | null
   ): Promise<PaginatedRecipes> {
@@ -63,17 +63,17 @@ export class BaseRecipeResolver {
   }
 
   @Query(() => [BaseRecipe])
-  async userRecipes(@Ctx() { req }: MyContext) {
+  async userBaseRecipes(@Ctx() { req }: MyContext) {
     return BaseRecipe.find({ creatorId: req.session.userId });
   }
 
   @Query(() => BaseRecipe, { nullable: true })
-  recipe(@Arg("id", () => Int) id: number): Promise<BaseRecipe | undefined> {
+  baseRecipe(@Arg("id", () => Int) id: number): Promise<BaseRecipe | undefined> {
     return BaseRecipe.findOne(id);
   }
 
   @Mutation(() => BaseRecipe)
-  async createRecipe(
+  async createBaseRecipe(
     @Arg("input") input: RecipeInput,
     @Ctx() { req }: MyContext
   ): Promise<BaseRecipe> {
@@ -84,7 +84,7 @@ export class BaseRecipeResolver {
   }
 
   @Mutation(() => BaseRecipe)
-  async updateRecipe(
+  async updateBaseRecipe(
     @Arg("id", () => Int) id: number,
     @Arg("name") name: string,
     @Arg("description") description: string,
@@ -104,7 +104,7 @@ export class BaseRecipeResolver {
   }
 
   @Mutation(() => Boolean)
-  async deleteRecipe(
+  async deleteBaseRecipe(
     @Arg("id", () => Int) id: number,
     @Ctx() { req }: MyContext
   ): Promise<Boolean> {
