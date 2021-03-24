@@ -57,7 +57,7 @@ let BaseRecipeResolver = class BaseRecipeResolver {
             return BaseRecipe_1.BaseRecipe.find();
         });
     }
-    recipes(limit, cursor) {
+    baseRecipes(limit, cursor) {
         return __awaiter(this, void 0, void 0, function* () {
             const realLimit = Math.min(50, limit);
             const realLimitPlusOne = realLimit + 1;
@@ -74,20 +74,20 @@ let BaseRecipeResolver = class BaseRecipeResolver {
             };
         });
     }
-    userRecipes({ req }) {
+    userBaseRecipes({ req }) {
         return __awaiter(this, void 0, void 0, function* () {
             return BaseRecipe_1.BaseRecipe.find({ creatorId: req.session.userId });
         });
     }
-    recipe(id) {
+    baseRecipe(id) {
         return BaseRecipe_1.BaseRecipe.findOne(id);
     }
-    createRecipe(input, { req }) {
+    createBaseRecipe(input, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             return BaseRecipe_1.BaseRecipe.create(Object.assign(Object.assign({}, input), { creatorId: req.session.userId })).save();
         });
     }
-    updateRecipe(id, name, description, { req }) {
+    updateBaseRecipe(id, name, description, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield typeorm_1.getConnection()
                 .createQueryBuilder()
@@ -102,7 +102,7 @@ let BaseRecipeResolver = class BaseRecipeResolver {
             return result.raw[0];
         });
     }
-    deleteRecipe(id, { req }) {
+    deleteBaseRecipe(id, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             yield BaseRecipe_1.BaseRecipe.delete({ id, creatorId: req.session.userId });
             return true;
@@ -122,21 +122,21 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "recipes", null);
+], BaseRecipeResolver.prototype, "baseRecipes", null);
 __decorate([
     type_graphql_1.Query(() => [BaseRecipe_1.BaseRecipe]),
     __param(0, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "userRecipes", null);
+], BaseRecipeResolver.prototype, "userBaseRecipes", null);
 __decorate([
     type_graphql_1.Query(() => BaseRecipe_1.BaseRecipe, { nullable: true }),
     __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "recipe", null);
+], BaseRecipeResolver.prototype, "baseRecipe", null);
 __decorate([
     type_graphql_1.Mutation(() => BaseRecipe_1.BaseRecipe),
     __param(0, type_graphql_1.Arg("input")),
@@ -144,7 +144,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [RecipeInput, Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "createRecipe", null);
+], BaseRecipeResolver.prototype, "createBaseRecipe", null);
 __decorate([
     type_graphql_1.Mutation(() => BaseRecipe_1.BaseRecipe),
     __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
@@ -154,7 +154,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String, String, Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "updateRecipe", null);
+], BaseRecipeResolver.prototype, "updateBaseRecipe", null);
 __decorate([
     type_graphql_1.Mutation(() => Boolean),
     __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
@@ -162,7 +162,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
-], BaseRecipeResolver.prototype, "deleteRecipe", null);
+], BaseRecipeResolver.prototype, "deleteBaseRecipe", null);
 BaseRecipeResolver = __decorate([
     type_graphql_1.Resolver(BaseRecipe_1.BaseRecipe)
 ], BaseRecipeResolver);

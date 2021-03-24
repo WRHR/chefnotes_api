@@ -38,6 +38,11 @@ IngredientInput = __decorate([
     type_graphql_1.InputType()
 ], IngredientInput);
 let IngredientResolver = class IngredientResolver {
+    recipeIngredients(recipeId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Ingredient_1.Ingredient.find({ recipeId });
+        });
+    }
     createIngredient(input, base, recipeId) {
         return __awaiter(this, void 0, void 0, function* () {
             return Ingredient_1.Ingredient.create(Object.assign(Object.assign({}, input), { base,
@@ -56,6 +61,13 @@ let IngredientResolver = class IngredientResolver {
         });
     }
 };
+__decorate([
+    type_graphql_1.Query(() => [Ingredient_1.Ingredient]),
+    __param(0, type_graphql_1.Arg('recipeId', () => type_graphql_1.Int)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], IngredientResolver.prototype, "recipeIngredients", null);
 __decorate([
     type_graphql_1.Mutation(() => Ingredient_1.Ingredient),
     __param(0, type_graphql_1.Arg("input")),
