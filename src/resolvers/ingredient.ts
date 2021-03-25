@@ -13,20 +13,21 @@ class IngredientInput {
 export class IngredientResolver {
   @Query(()=>[Ingredient])
   async recipeIngredients(
-    @Arg('recipeId', ()=>Int) recipeId:number
-  ):Promise<Ingredient[]>{
-    return Ingredient.find({recipeId})
+    @Arg('recipeId', ()=>Int) recipeId:number,
+    @Arg('original')original:Boolean
+  ):Promise<Ingredient[]|undefined>{
+    return Ingredient.find({recipeId, original})
   }
-  
+
   @Mutation(() => Ingredient)
   async createIngredient(
     @Arg("input") input: IngredientInput,
-    @Arg("base") base: boolean,
+    @Arg("original") original: boolean,
     @Arg("recipeId", () => Int) recipeId: number
   ): Promise<Ingredient> {
     return Ingredient.create({
       ...input,
-      base,
+      original,
       recipeId,
     }).save();
   }

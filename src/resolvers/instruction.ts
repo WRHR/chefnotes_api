@@ -22,19 +22,20 @@ class InstructionInput {
 export class InstructionResolver {
   @Query(() => [Instruction])
   async recipeInstructions(
-    @Arg("recipeId", () => Int) recipeId: number
+    @Arg("recipeId", () => Int) recipeId: number,
+    @Arg('original')original:Boolean
   ): Promise<Instruction[]> {
-    return Instruction.find({ recipeId });
+    return Instruction.find({ recipeId, original });
   }
   @Mutation(() => Instruction)
   async createInstruction(
     @Arg("input") input: InstructionInput,
-    @Arg("base") base: boolean,
+    @Arg("original") original: boolean,
     @Arg("recipeId", () => Int) recipeId: number
   ): Promise<Instruction> {
     return Instruction.create({
       ...input,
-      base,
+      original,
       recipeId,
     }).save();
   }

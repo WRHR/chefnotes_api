@@ -18,7 +18,7 @@ export class Instruction extends BaseEntity{
   position:number
 
   @Column()
-  base!:boolean
+  original!:Boolean
 
   @PrimaryColumn()
   recipeId:number
