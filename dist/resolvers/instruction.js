@@ -38,14 +38,14 @@ InstructionInput = __decorate([
     type_graphql_1.InputType()
 ], InstructionInput);
 let InstructionResolver = class InstructionResolver {
-    recipeInstructions(recipeId) {
+    recipeInstructions(recipeId, original) {
         return __awaiter(this, void 0, void 0, function* () {
-            return Instruction_1.Instruction.find({ recipeId });
+            return Instruction_1.Instruction.find({ recipeId, original });
         });
     }
-    createInstruction(input, base, recipeId) {
+    createInstruction(input, original, recipeId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return Instruction_1.Instruction.create(Object.assign(Object.assign({}, input), { base,
+            return Instruction_1.Instruction.create(Object.assign(Object.assign({}, input), { original,
                 recipeId })).save();
         });
     }
@@ -64,14 +64,15 @@ let InstructionResolver = class InstructionResolver {
 __decorate([
     type_graphql_1.Query(() => [Instruction_1.Instruction]),
     __param(0, type_graphql_1.Arg("recipeId", () => type_graphql_1.Int)),
+    __param(1, type_graphql_1.Arg('original')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Boolean]),
     __metadata("design:returntype", Promise)
 ], InstructionResolver.prototype, "recipeInstructions", null);
 __decorate([
     type_graphql_1.Mutation(() => Instruction_1.Instruction),
     __param(0, type_graphql_1.Arg("input")),
-    __param(1, type_graphql_1.Arg("base")),
+    __param(1, type_graphql_1.Arg("original")),
     __param(2, type_graphql_1.Arg("recipeId", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [InstructionInput, Boolean, Number]),
