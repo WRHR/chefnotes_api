@@ -1,7 +1,6 @@
 import { Field } from 'type-graphql'
 import { BaseEntity, Column, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
 import { BaseRecipe } from './BaseRecipe'
-import { Recipe } from './Recipe'
 
 export default class NoteRecipe extends BaseEntity{
   @Field()
