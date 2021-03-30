@@ -11,6 +11,7 @@ import {
 import { Ingredient } from "./Ingredient";
 import { Instruction } from "./Instruction";
 import { ModifiedRecipe } from "./ModifiedRecipe";
+import NoteRecipe from "./NoteRecipe";
 import { User } from "./User";
 
 @ObjectType()
@@ -34,8 +35,8 @@ export class BaseRecipe extends BaseEntity {
   @OneToMany(() => Instruction, (instruction) => instruction.recipe)
   instructions: Instruction[];
 
-  @OneToMany(()=> ModifiedRecipe, mr => mr.baseRecipe)
-  modifiedRecipes: ModifiedRecipe[]
+  @OneToMany(() => ModifiedRecipe, (mr) => mr.baseRecipe)
+  modifiedRecipes: ModifiedRecipe[];
 
   @Field()
   @PrimaryColumn()
@@ -43,4 +44,7 @@ export class BaseRecipe extends BaseEntity {
 
   @ManyToOne(() => User, (user) => user.recipes)
   creator: User;
+
+  @OneToMany(() => NoteRecipe, (note) => note.recipe)
+  notes: NoteRecipe[];
 }
