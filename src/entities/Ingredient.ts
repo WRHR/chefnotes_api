@@ -4,10 +4,12 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { BaseRecipe } from "./BaseRecipe";
+import NoteIngredient from "./NoteIngredient";
 
 @ObjectType()
 @Entity()
@@ -34,4 +36,7 @@ export class Ingredient extends BaseEntity {
     onDelete: "CASCADE",
   })
   recipe: BaseRecipe;
+
+  @OneToMany(()=>NoteIngredient, ni => ni.ingredient)
+  notes: NoteIngredient[]
 }
