@@ -11,6 +11,10 @@ export default class NoteIngredient extends BaseEntity{
   @Column()
   content:string
 
+  @Field()
+  @PrimaryColumn()
+  ingredientId:number
+
   @ManyToOne(()=>
   Ingredient, ingredient => ingredient.notes)
   ingredient:Ingredient
