@@ -24,7 +24,11 @@ export class Ingredient extends BaseEntity {
 
   @Field()
   @Column()
-  quantity!: string;
+  quantity!: number;
+
+  @Field()
+  @Column()
+  measurement!:string;
 
   @Column()
   original!:Boolean

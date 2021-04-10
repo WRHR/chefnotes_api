@@ -6,7 +6,9 @@ class IngredientInput {
   @Field()
   name!: string;
   @Field()
-  quantity!: string;
+  quantity!: number;
+  @Field()
+  measuement!:string
 }
 
 @Resolver(Ingredient)
