@@ -19,7 +19,7 @@ import { Instruction } from "./entities/Instruction";
 import { BaseRecipeResolver } from "./resolvers/baseRecipe";
 import { IngredientResolver } from "./resolvers/ingredient";
 import { InstructionResolver } from "./resolvers/instruction";
-import NoteIngredient from "./entities/NoteIngredient";
+import { NoteIngredient } from "./entities/NoteIngredient";
 import NoteInstruction from "./entities/NoteInstruction";
 import NoteRecipe from "./entities/NoteRecipe";
 

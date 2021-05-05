@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const Instruction_1 = require("./Instruction");
-class NoteInstruction extends typeorm_1.BaseEntity {
-}
+let NoteInstruction = class NoteInstruction extends typeorm_1.BaseEntity {
+};
 __decorate([
     type_graphql_1.Field(),
     typeorm_1.PrimaryGeneratedColumn(),
@@ -30,8 +30,12 @@ __decorate([
     __metadata("design:type", Number)
 ], NoteInstruction.prototype, "instructionId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(() => Instruction_1.Instruction, instruction => instruction.notes),
+    typeorm_1.ManyToOne(() => Instruction_1.Instruction, (instruction) => instruction.notes),
     __metadata("design:type", Instruction_1.Instruction)
 ], NoteInstruction.prototype, "instruction", void 0);
+NoteInstruction = __decorate([
+    type_graphql_1.ObjectType(),
+    typeorm_1.Entity()
+], NoteInstruction);
 exports.default = NoteInstruction;
 //# sourceMappingURL=NoteInstruction.js.map

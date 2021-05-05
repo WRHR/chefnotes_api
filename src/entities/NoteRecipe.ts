@@ -1,20 +1,29 @@
-import { Field } from 'type-graphql'
-import { BaseEntity, Column, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
-import { BaseRecipe } from './BaseRecipe'
+import { Field, ObjectType } from "type-graphql";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { BaseRecipe } from "./BaseRecipe";
 
-export default class NoteRecipe extends BaseEntity{
+@ObjectType()
+@Entity()
+export default class NoteRecipe extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
-  id!:number
+  id!: number;
 
   @Field()
   @Column()
-  content:string
+  content: string;
 
   @Field()
   @PrimaryColumn()
-  recipeId:number
+  recipeId: number;
 
-  @ManyToOne(()=>BaseRecipe, recipe => recipe.notes)
-  recipe:BaseRecipe
-} 
+  @ManyToOne(() => BaseRecipe, (recipe) => recipe.notes)
+  recipe: BaseRecipe;
+}

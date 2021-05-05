@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { BaseRecipe } from "./BaseRecipe";
-import NoteIngredient from "./NoteIngredient";
+import {NoteIngredient} from "./NoteIngredient";
 
 @ObjectType()
 @Entity()
@@ -28,10 +28,10 @@ export class Ingredient extends BaseEntity {
 
   @Field()
   @Column()
-  measurement!:string;
+  measurement!: string;
 
   @Column()
-  original!:Boolean
+  original!: Boolean;
 
   @PrimaryColumn()
   recipeId: number;
@@ -41,6 +41,8 @@ export class Ingredient extends BaseEntity {
   })
   recipe: BaseRecipe;
 
-  @OneToMany(()=>NoteIngredient, ni => ni.ingredient)
-  notes: NoteIngredient[]
+  @OneToMany(() => NoteIngredient, (ni) => ni.ingredient, {
+    onDelete: "CASCADE",
+  })
+  notes: NoteIngredient[];
 }

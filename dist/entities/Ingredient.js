@@ -8,15 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ingredient = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const BaseRecipe_1 = require("./BaseRecipe");
-const NoteIngredient_1 = __importDefault(require("./NoteIngredient"));
+const NoteIngredient_1 = require("./NoteIngredient");
 let Ingredient = class Ingredient extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -54,7 +51,9 @@ __decorate([
     __metadata("design:type", BaseRecipe_1.BaseRecipe)
 ], Ingredient.prototype, "recipe", void 0);
 __decorate([
-    typeorm_1.OneToMany(() => NoteIngredient_1.default, ni => ni.ingredient),
+    typeorm_1.OneToMany(() => NoteIngredient_1.NoteIngredient, (ni) => ni.ingredient, {
+        onDelete: "CASCADE",
+    }),
     __metadata("design:type", Array)
 ], Ingredient.prototype, "notes", void 0);
 Ingredient = __decorate([

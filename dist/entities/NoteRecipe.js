@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const BaseRecipe_1 = require("./BaseRecipe");
-class NoteRecipe extends typeorm_1.BaseEntity {
-}
+let NoteRecipe = class NoteRecipe extends typeorm_1.BaseEntity {
+};
 __decorate([
     type_graphql_1.Field(),
     typeorm_1.PrimaryGeneratedColumn(),
@@ -30,8 +30,12 @@ __decorate([
     __metadata("design:type", Number)
 ], NoteRecipe.prototype, "recipeId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(() => BaseRecipe_1.BaseRecipe, recipe => recipe.notes),
+    typeorm_1.ManyToOne(() => BaseRecipe_1.BaseRecipe, (recipe) => recipe.notes),
     __metadata("design:type", BaseRecipe_1.BaseRecipe)
 ], NoteRecipe.prototype, "recipe", void 0);
+NoteRecipe = __decorate([
+    type_graphql_1.ObjectType(),
+    typeorm_1.Entity()
+], NoteRecipe);
 exports.default = NoteRecipe;
 //# sourceMappingURL=NoteRecipe.js.map

@@ -9,11 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NoteIngredient = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
 const Ingredient_1 = require("./Ingredient");
-class NoteIngredient extends typeorm_1.BaseEntity {
-}
+let NoteIngredient = class NoteIngredient extends typeorm_1.BaseEntity {
+};
 __decorate([
     type_graphql_1.Field(),
     typeorm_1.PrimaryGeneratedColumn(),
@@ -30,8 +31,12 @@ __decorate([
     __metadata("design:type", Number)
 ], NoteIngredient.prototype, "ingredientId", void 0);
 __decorate([
-    typeorm_1.ManyToOne(() => Ingredient_1.Ingredient, ingredient => ingredient.notes),
+    typeorm_1.ManyToOne(() => Ingredient_1.Ingredient, (ingredient) => ingredient.notes),
     __metadata("design:type", Ingredient_1.Ingredient)
 ], NoteIngredient.prototype, "ingredient", void 0);
-exports.default = NoteIngredient;
+NoteIngredient = __decorate([
+    type_graphql_1.ObjectType(),
+    typeorm_1.Entity()
+], NoteIngredient);
+exports.NoteIngredient = NoteIngredient;
 //# sourceMappingURL=NoteIngredient.js.map
