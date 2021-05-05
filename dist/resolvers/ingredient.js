@@ -32,8 +32,12 @@ __decorate([
 ], IngredientInput.prototype, "name", void 0);
 __decorate([
     type_graphql_1.Field(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], IngredientInput.prototype, "quantity", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], IngredientInput.prototype, "measurement", void 0);
 IngredientInput = __decorate([
     type_graphql_1.InputType()
 ], IngredientInput);

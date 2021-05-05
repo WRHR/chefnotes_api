@@ -32,6 +32,9 @@ const Instruction_1 = require("./entities/Instruction");
 const baseRecipe_1 = require("./resolvers/baseRecipe");
 const ingredient_1 = require("./resolvers/ingredient");
 const instruction_1 = require("./resolvers/instruction");
+const NoteIngredient_1 = __importDefault(require("./entities/NoteIngredient"));
+const NoteInstruction_1 = __importDefault(require("./entities/NoteInstruction"));
+const NoteRecipe_1 = __importDefault(require("./entities/NoteRecipe"));
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     dotenv_1.default.config();
     yield typeorm_1.createConnection({
@@ -39,7 +42,16 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         database: process.env.DB,
         logging: true,
         synchronize: true,
-        entities: [User_1.User, BaseRecipe_1.BaseRecipe, ModifiedRecipe_1.ModifiedRecipe, Ingredient_1.Ingredient, Instruction_1.Instruction],
+        entities: [
+            User_1.User,
+            BaseRecipe_1.BaseRecipe,
+            ModifiedRecipe_1.ModifiedRecipe,
+            Ingredient_1.Ingredient,
+            Instruction_1.Instruction,
+            NoteIngredient_1.default,
+            NoteInstruction_1.default,
+            NoteRecipe_1.default,
+        ],
     });
     const app = express_1.default();
     const RedisStore = connect_redis_1.default(express_session_1.default);
@@ -66,7 +78,12 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
-            resolvers: [user_1.UserResolver, baseRecipe_1.BaseRecipeResolver, ingredient_1.IngredientResolver, instruction_1.InstructionResolver],
+            resolvers: [
+                user_1.UserResolver,
+                baseRecipe_1.BaseRecipeResolver,
+                ingredient_1.IngredientResolver,
+                instruction_1.InstructionResolver,
+            ],
             validate: false,
         }),
         context: ({ req, res }) => ({ req, res, redis }),
