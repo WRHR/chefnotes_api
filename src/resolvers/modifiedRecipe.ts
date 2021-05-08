@@ -22,7 +22,7 @@ class RecipeInput {
   description!: string;
 
   @Field()
-  baseRecipeId:number
+  baseRecipeId: number;
 }
 
 @ObjectType()
@@ -66,14 +66,23 @@ export class ModifiedRecipeResolver {
   }
 
   @Query(() => ModifiedRecipe, { nullable: true })
-  modifiedRecipe(@Arg("id", () => Int) id: number): Promise<ModifiedRecipe | undefined> {
+  modifiedRecipe(
+    @Arg("id", () => Int) id: number
+  ): Promise<ModifiedRecipe | undefined> {
     return ModifiedRecipe.findOne(id);
+  }
+
+  @Query(() => ModifiedRecipe, { nullable: true })
+  async findRecipeMods(
+    @Arg("baseRecipeId", () => Int) baseRecipeId: number
+  ): Promise<ModifiedRecipe[] | undefined> {
+    return ModifiedRecipe.find({ baseRecipeId });
   }
 
   @Mutation(() => ModifiedRecipe)
   async createModifiedRecipe(
     @Arg("input") input: RecipeInput,
-    @Arg('baseRecipeId',()=>Int) baseRecipeId:number,
+    @Arg("baseRecipeId", () => Int) baseRecipeId: number,
     @Ctx() { req }: MyContext
   ): Promise<ModifiedRecipe> {
     return ModifiedRecipe.create({

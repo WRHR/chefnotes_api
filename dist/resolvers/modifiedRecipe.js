@@ -81,6 +81,11 @@ let ModifiedRecipeResolver = class ModifiedRecipeResolver {
     modifiedRecipe(id) {
         return ModifiedRecipe_1.ModifiedRecipe.findOne(id);
     }
+    findRecipeMods(baseRecipeId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return ModifiedRecipe_1.ModifiedRecipe.find({ baseRecipeId });
+        });
+    }
     createModifiedRecipe(input, baseRecipeId, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             return ModifiedRecipe_1.ModifiedRecipe.create(Object.assign(Object.assign({}, input), { baseRecipeId, creatorId: req.session.userId })).save();
@@ -130,9 +135,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ModifiedRecipeResolver.prototype, "modifiedRecipe", null);
 __decorate([
+    type_graphql_1.Query(() => ModifiedRecipe_1.ModifiedRecipe, { nullable: true }),
+    __param(0, type_graphql_1.Arg("baseRecipeId", () => type_graphql_1.Int)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ModifiedRecipeResolver.prototype, "findRecipeMods", null);
+__decorate([
     type_graphql_1.Mutation(() => ModifiedRecipe_1.ModifiedRecipe),
     __param(0, type_graphql_1.Arg("input")),
-    __param(1, type_graphql_1.Arg('baseRecipeId', () => type_graphql_1.Int)),
+    __param(1, type_graphql_1.Arg("baseRecipeId", () => type_graphql_1.Int)),
     __param(2, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [RecipeInput, Number, Object]),
