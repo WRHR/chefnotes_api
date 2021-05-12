@@ -22,6 +22,7 @@ import { InstructionResolver } from "./resolvers/instruction";
 import { NoteIngredient } from "./entities/NoteIngredient";
 import NoteInstruction from "./entities/NoteInstruction";
 import NoteRecipe from "./entities/NoteRecipe";
+import { ModifiedRecipeResolver } from "./resolvers/modifiedRecipe";
 
 const main = async () => {
   dotenv.config();
@@ -81,6 +82,7 @@ const main = async () => {
         BaseRecipeResolver,
         IngredientResolver,
         InstructionResolver,
+        ModifiedRecipeResolver
       ],
       validate: false,
     }),

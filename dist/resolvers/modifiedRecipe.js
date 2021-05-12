@@ -25,57 +25,27 @@ exports.ModifiedRecipeResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const ModifiedRecipe_1 = require("../entities/ModifiedRecipe");
-let RecipeInput = class RecipeInput {
+let ModifiedRecipeInput = class ModifiedRecipeInput {
 };
 __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", String)
-], RecipeInput.prototype, "name", void 0);
+], ModifiedRecipeInput.prototype, "name", void 0);
 __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", String)
-], RecipeInput.prototype, "description", void 0);
+], ModifiedRecipeInput.prototype, "description", void 0);
 __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", Number)
-], RecipeInput.prototype, "baseRecipeId", void 0);
-RecipeInput = __decorate([
+], ModifiedRecipeInput.prototype, "baseRecipeId", void 0);
+ModifiedRecipeInput = __decorate([
     type_graphql_1.InputType()
-], RecipeInput);
-let PaginatedRecipes = class PaginatedRecipes {
-};
-__decorate([
-    type_graphql_1.Field(() => [ModifiedRecipe_1.ModifiedRecipe]),
-    __metadata("design:type", Array)
-], PaginatedRecipes.prototype, "recipes", void 0);
-__decorate([
-    type_graphql_1.Field(),
-    __metadata("design:type", Boolean)
-], PaginatedRecipes.prototype, "hasMore", void 0);
-PaginatedRecipes = __decorate([
-    type_graphql_1.ObjectType()
-], PaginatedRecipes);
+], ModifiedRecipeInput);
 let ModifiedRecipeResolver = class ModifiedRecipeResolver {
     modifiedRecipesAll() {
         return __awaiter(this, void 0, void 0, function* () {
             return ModifiedRecipe_1.ModifiedRecipe.find();
-        });
-    }
-    modifiedRecipes(limit, cursor) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const realLimit = Math.min(50, limit);
-            const realLimitPlusOne = realLimit + 1;
-            const replacements = [realLimitPlusOne];
-            if (cursor) {
-                replacements.push(new Date(parseInt(cursor)));
-            }
-            const recipes = yield typeorm_1.getConnection().query(`
-      select 
-      `);
-            return {
-                recipes: recipes.slice(0, realLimit),
-                hasMore: postMessage.length === realLimitPlusOne,
-            };
         });
     }
     modifiedRecipe(id) {
@@ -120,14 +90,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ModifiedRecipeResolver.prototype, "modifiedRecipesAll", null);
 __decorate([
-    type_graphql_1.Query(() => PaginatedRecipes),
-    __param(0, type_graphql_1.Arg("limit", () => type_graphql_1.Int)),
-    __param(1, type_graphql_1.Arg("cursor", () => String, { nullable: true })),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
-    __metadata("design:returntype", Promise)
-], ModifiedRecipeResolver.prototype, "modifiedRecipes", null);
-__decorate([
     type_graphql_1.Query(() => ModifiedRecipe_1.ModifiedRecipe, { nullable: true }),
     __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
@@ -147,7 +109,7 @@ __decorate([
     __param(1, type_graphql_1.Arg("baseRecipeId", () => type_graphql_1.Int)),
     __param(2, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [RecipeInput, Number, Object]),
+    __metadata("design:paramtypes", [ModifiedRecipeInput, Number, Object]),
     __metadata("design:returntype", Promise)
 ], ModifiedRecipeResolver.prototype, "createModifiedRecipe", null);
 __decorate([

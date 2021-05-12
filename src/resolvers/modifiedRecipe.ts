@@ -6,7 +6,6 @@ import {
   InputType,
   Int,
   Mutation,
-  ObjectType,
   Query,
   Resolver,
 } from "type-graphql";
@@ -14,7 +13,7 @@ import { getConnection } from "typeorm";
 import { ModifiedRecipe } from "../entities/ModifiedRecipe";
 
 @InputType()
-class RecipeInput {
+class ModifiedRecipeInput {
   @Field()
   name!: string;
 
@@ -25,44 +24,11 @@ class RecipeInput {
   baseRecipeId: number;
 }
 
-@ObjectType()
-class PaginatedRecipes {
-  @Field(() => [ModifiedRecipe])
-  recipes: ModifiedRecipe[];
-
-  @Field()
-  hasMore: boolean;
-}
-
 @Resolver(ModifiedRecipe)
 export class ModifiedRecipeResolver {
   @Query(() => [ModifiedRecipe])
   async modifiedRecipesAll(): Promise<ModifiedRecipe[]> {
     return ModifiedRecipe.find();
-  }
-
-  @Query(() => PaginatedRecipes)
-  async modifiedRecipes(
-    @Arg("limit", () => Int) limit: number,
-    @Arg("cursor", () => String, { nullable: true }) cursor: string | null
-  ): Promise<PaginatedRecipes> {
-    const realLimit = Math.min(50, limit);
-    const realLimitPlusOne = realLimit + 1;
-    const replacements: any[] = [realLimitPlusOne];
-
-    if (cursor) {
-      replacements.push(new Date(parseInt(cursor)));
-    }
-
-    const recipes = await getConnection().query(
-      `
-      select 
-      `
-    );
-    return {
-      recipes: recipes.slice(0, realLimit),
-      hasMore: postMessage.length === realLimitPlusOne,
-    };
   }
 
   @Query(() => ModifiedRecipe, { nullable: true })
@@ -81,7 +47,7 @@ export class ModifiedRecipeResolver {
 
   @Mutation(() => ModifiedRecipe)
   async createModifiedRecipe(
-    @Arg("input") input: RecipeInput,
+    @Arg("input") input: ModifiedRecipeInput,
     @Arg("baseRecipeId", () => Int) baseRecipeId: number,
     @Ctx() { req }: MyContext
   ): Promise<ModifiedRecipe> {
