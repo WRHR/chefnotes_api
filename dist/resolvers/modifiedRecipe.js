@@ -97,7 +97,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ModifiedRecipeResolver.prototype, "modifiedRecipe", null);
 __decorate([
-    type_graphql_1.Query(() => ModifiedRecipe_1.ModifiedRecipe),
+    type_graphql_1.Query(() => [ModifiedRecipe_1.ModifiedRecipe]),
     __param(0, type_graphql_1.Arg("baseRecipeId", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),

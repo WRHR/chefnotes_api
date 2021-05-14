@@ -38,7 +38,7 @@ export class ModifiedRecipeResolver {
     return ModifiedRecipe.findOne(id);
   }
 
-  @Query(() => ModifiedRecipe)
+  @Query(() => [ModifiedRecipe])
   async findRecipeMods(
     @Arg("baseRecipeId", () => Int) baseRecipeId: number
   ): Promise<ModifiedRecipe[] | undefined> {
