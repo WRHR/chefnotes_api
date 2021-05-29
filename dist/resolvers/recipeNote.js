@@ -38,6 +38,17 @@ let NoteRecipeResolver = class NoteRecipeResolver {
             return NoteRecipe_1.default.create({ recipeId, content });
         });
     }
+    updateRecipeNote(id, content) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield NoteRecipe_1.default.update({ id }, { content })).raw[0];
+        });
+    }
+    deleteNoteRecipe(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            NoteRecipe_1.default.delete({ id });
+            return true;
+        });
+    }
 };
 __decorate([
     type_graphql_1.Query(() => [NoteRecipe_1.default]),
@@ -54,6 +65,21 @@ __decorate([
     __metadata("design:paramtypes", [Number, String]),
     __metadata("design:returntype", Promise)
 ], NoteRecipeResolver.prototype, "createNoteRecipe", null);
+__decorate([
+    type_graphql_1.Mutation(() => NoteRecipe_1.default),
+    __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
+    __param(1, type_graphql_1.Arg("content")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, String]),
+    __metadata("design:returntype", Promise)
+], NoteRecipeResolver.prototype, "updateRecipeNote", null);
+__decorate([
+    type_graphql_1.Mutation(() => Boolean),
+    __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], NoteRecipeResolver.prototype, "deleteNoteRecipe", null);
 NoteRecipeResolver = __decorate([
     type_graphql_1.Resolver(NoteRecipe_1.default)
 ], NoteRecipeResolver);
