@@ -33,6 +33,11 @@ let NoteRecipeResolver = class NoteRecipeResolver {
             return NoteRecipe_1.default.find({ recipeId });
         });
     }
+    createNoteRecipe(recipeId, content) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return NoteRecipe_1.default.create({ recipeId, content });
+        });
+    }
 };
 __decorate([
     type_graphql_1.Query(() => [NoteRecipe_1.default]),
@@ -41,6 +46,14 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], NoteRecipeResolver.prototype, "recipeNotes", null);
+__decorate([
+    type_graphql_1.Mutation(() => NoteRecipe_1.default),
+    __param(0, type_graphql_1.Arg("recipeId", () => type_graphql_1.Int)),
+    __param(1, type_graphql_1.Arg("conent")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, String]),
+    __metadata("design:returntype", Promise)
+], NoteRecipeResolver.prototype, "createNoteRecipe", null);
 NoteRecipeResolver = __decorate([
     type_graphql_1.Resolver(NoteRecipe_1.default)
 ], NoteRecipeResolver);
