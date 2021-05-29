@@ -9,11 +9,20 @@ export class NoteRecipeResolver {
   ): Promise<NoteRecipe[]> {
     return NoteRecipe.find({ recipeId });
   }
+
   @Mutation(() => NoteRecipe)
   async createNoteRecipe(
     @Arg("recipeId", () => Int) recipeId: number,
     @Arg("conent") content: string
   ): Promise<NoteRecipe> {
     return NoteRecipe.create({ recipeId, content });
+  }
+
+  @Mutation(() => NoteRecipe)
+  async updateRecipeNote(
+    @Arg("id", () => Int) id: number,
+    @Arg("content") content: string
+  ): Promise<NoteRecipe | null> {
+    return (await NoteRecipe.update({ id }, { content })).raw[0];
   }
 }
