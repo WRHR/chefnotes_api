@@ -25,4 +25,10 @@ export class NoteRecipeResolver {
   ): Promise<NoteRecipe | null> {
     return (await NoteRecipe.update({ id }, { content })).raw[0];
   }
+
+  @Mutation(() => Boolean)
+  async deleteNoteRecipe(@Arg("id", () => Int) id: number): Promise<Boolean> {
+    NoteRecipe.delete({ id });
+    return true;
+  }
 }
