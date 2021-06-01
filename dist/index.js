@@ -36,6 +36,7 @@ const NoteIngredient_1 = require("./entities/NoteIngredient");
 const NoteInstruction_1 = __importDefault(require("./entities/NoteInstruction"));
 const NoteRecipe_1 = __importDefault(require("./entities/NoteRecipe"));
 const modifiedRecipe_1 = require("./resolvers/modifiedRecipe");
+const recipeNote_1 = require("./resolvers/recipeNote");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     dotenv_1.default.config();
     yield typeorm_1.createConnection({
@@ -84,7 +85,8 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                 baseRecipe_1.BaseRecipeResolver,
                 ingredient_1.IngredientResolver,
                 instruction_1.InstructionResolver,
-                modifiedRecipe_1.ModifiedRecipeResolver
+                modifiedRecipe_1.ModifiedRecipeResolver,
+                recipeNote_1.NoteRecipeResolver
             ],
             validate: false,
         }),
