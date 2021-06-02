@@ -1,32 +1,35 @@
-import { Field, ObjectType } from 'type-graphql'
-import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
-import { BaseRecipe } from './BaseRecipe'
-import NoteInstruction from './NoteInstruction'
+import { Field, ObjectType } from "type-graphql";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { BaseRecipe } from "./BaseRecipe";
 
 @ObjectType()
 @Entity()
-export class Instruction extends BaseEntity{
+export class Instruction extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
-  id!:number
+  id!: number;
 
   @Field()
   @Column()
-  description:string
+  description: string;
 
   @Field()
   @Column()
-  position:number
+  position: number;
 
   @Column()
-  original!:Boolean
+  original!: Boolean;
 
   @PrimaryColumn()
-  recipeId:number
+  recipeId: number;
 
-  @ManyToOne(()=>BaseRecipe, (recipe)=> recipe.instructions)
-  recipe:BaseRecipe
-
-  @OneToMany(()=>NoteInstruction, ni => ni.instruction)
-  notes:NoteInstruction[]
+  @ManyToOne(() => BaseRecipe, (recipe) => recipe.instructions)
+  recipe: BaseRecipe;
 }

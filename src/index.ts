@@ -19,8 +19,6 @@ import { Instruction } from "./entities/Instruction";
 import { BaseRecipeResolver } from "./resolvers/baseRecipe";
 import { IngredientResolver } from "./resolvers/ingredient";
 import { InstructionResolver } from "./resolvers/instruction";
-import { NoteIngredient } from "./entities/NoteIngredient";
-import NoteInstruction from "./entities/NoteInstruction";
 import NoteRecipe from "./entities/NoteRecipe";
 import { ModifiedRecipeResolver } from "./resolvers/modifiedRecipe";
 import { NoteRecipeResolver } from "./resolvers/recipeNote";
@@ -39,8 +37,6 @@ const main = async () => {
       ModifiedRecipe,
       Ingredient,
       Instruction,
-      NoteIngredient,
-      NoteInstruction,
       NoteRecipe,
     ],
   });
