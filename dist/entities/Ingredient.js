@@ -13,7 +13,6 @@ exports.Ingredient = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const BaseRecipe_1 = require("./BaseRecipe");
-const NoteIngredient_1 = require("./NoteIngredient");
 let Ingredient = class Ingredient extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -50,12 +49,6 @@ __decorate([
     }),
     __metadata("design:type", BaseRecipe_1.BaseRecipe)
 ], Ingredient.prototype, "recipe", void 0);
-__decorate([
-    typeorm_1.OneToMany(() => NoteIngredient_1.NoteIngredient, (ni) => ni.ingredient, {
-        onDelete: "CASCADE",
-    }),
-    __metadata("design:type", Array)
-], Ingredient.prototype, "notes", void 0);
 Ingredient = __decorate([
     type_graphql_1.ObjectType(),
     typeorm_1.Entity()

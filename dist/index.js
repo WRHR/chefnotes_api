@@ -32,8 +32,6 @@ const Instruction_1 = require("./entities/Instruction");
 const baseRecipe_1 = require("./resolvers/baseRecipe");
 const ingredient_1 = require("./resolvers/ingredient");
 const instruction_1 = require("./resolvers/instruction");
-const NoteIngredient_1 = require("./entities/NoteIngredient");
-const NoteInstruction_1 = __importDefault(require("./entities/NoteInstruction"));
 const NoteRecipe_1 = __importDefault(require("./entities/NoteRecipe"));
 const modifiedRecipe_1 = require("./resolvers/modifiedRecipe");
 const recipeNote_1 = require("./resolvers/recipeNote");
@@ -50,8 +48,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             ModifiedRecipe_1.ModifiedRecipe,
             Ingredient_1.Ingredient,
             Instruction_1.Instruction,
-            NoteIngredient_1.NoteIngredient,
-            NoteInstruction_1.default,
             NoteRecipe_1.default,
         ],
     });
